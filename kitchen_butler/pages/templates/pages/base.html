@@ -12,7 +12,7 @@
             <h1 class="text-2xl font-bold">Kitchen Butler</h1>
             <div>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'home' %}" class="text-white hover:text-blue-200 mr-4">Dashboard</a>
+                    <a href="{% url 'dashboard' %}" class="text-white hover:text-blue-200 mr-4">Dashboard</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Inventory</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Meal Plan</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Shopping List</a>
