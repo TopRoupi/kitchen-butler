@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 import stripe
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
@@ -42,6 +43,7 @@ def success(request):
 def cancel(request):
     return render(request, 'subscriptions/cancel.html')
 
+@require_POST
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -65,7 +67,33 @@ def stripe_webhook(request):
     return HttpResponse(status=200)
 
 def handle_subscription_created(event):
-    # Update user's subscription status
+    # Get the subscription object from the event
+    subscription = event['data']['object']
+
+    # Get the customer ID from the subscription
+    customer_id = subscription['customer']
+
+    try:
+        # Find the user with this Stripe customer ID
+        user = CustomUser.objects.get(stripe_customer_id=customer_id)
+
+        # Update the user's subscription status
+        user.subscription_status = 'active'
+
+        # You might want to store additional information about the subscription
+        user.stripe_subscription_id = subscription['id']
+        user.subscription_plan = subscription['plan']['nickname']
+        user.subscription_current_period_end = datetime.fromtimestamp(subscription['current_period_end'])
+
+        user.save()
+
+        # Log it
+        print(f"Subscription created for user {user.username}")
+
+    except CustomUser.DoesNotExist:
+        print(f"No user found with Stripe customer ID {customer_id}")
+    except Exception as e:
+        print(f"Error processing subscription creation: {str(e)}")
     pass
 
 def handle_subscription_deleted(event):
