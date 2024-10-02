@@ -28,7 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['kitchenbutler.io']
 CSRF_TRUSTED_ORIGINS = ['https://kitchenbutler.io']
-
+# ALLOWED_HOSTS = ['*']
+# CSRF_TRUSTED_ORIGINS = ['http://localhost']
+APPEND_SLASH = False
 
 # Application definition
 
