@@ -7,7 +7,7 @@ import stripe
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 
-from kitchen_butler.accounts.models import CustomUser
+from accounts.models import CustomUser
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
