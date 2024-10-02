@@ -19,8 +19,16 @@
     var subscribeButton = document.getElementById('subscribe-button');
 
     subscribeButton.addEventListener('click', function() {
-        fetch('/subscriptions/create-checkout-session/', {
+        // Disable the button to prevent multiple clicks
+        subscribeButton.disabled = true;
+        
+        fetch('{% url "create_checkout_session" %}', {
             method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
         })
         .then(function(response) {
             return response.json();
@@ -35,6 +43,11 @@
         })
         .catch(function(error) {
             console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        })
+        .finally(function() {
+            // Re-enable the button
+            subscribeButton.disabled = false;
         });
     });
 </script>

@@ -9,22 +9,30 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def subscription_page(request):
-    return render(request, 'subscriptions/subscription_page.html', {'stripe_public_key': settings.STRIPE_PUBLIC_KEY})
+    return render(request, 'subscriptions/subscription_page.html', {
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY
+    })
 
 @login_required
+@csrf_exempt
 def create_checkout_session(request):
-    checkout_session = stripe.checkout.Session.create(
-        customer=request.user.stripe_customer_id,
-        payment_method_types=['card'],
-        line_items=[{
-            'price': settings.STRIPE_PRICE_ID,
-            'quantity': 1,
-        }],
-        mode='subscription',
-        success_url=request.build_absolute_uri('/subscriptions/success/'),
-        cancel_url=request.build_absolute_uri('/subscriptions/cancel/'),
-    )
-    return JsonResponse({'id': checkout_session.id})
+    if request.method == 'POST':
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                customer_email=request.user.email,
+                payment_method_types=['card'],
+                line_items=[{
+                    'price': settings.STRIPE_PRICE_ID,
+                    'quantity': 1,
+                }],
+                mode='subscription',
+                success_url=request.build_absolute_uri('/subscriptions/success/'),
+                cancel_url=request.build_absolute_uri('/subscriptions/cancel/'),
+            )
+            return JsonResponse({'id': checkout_session.id})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 @login_required
 def success(request):
