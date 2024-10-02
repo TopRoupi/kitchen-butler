@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-itn5pd-f!2_2ia+a1u#p9w__3^70x1w)6l++rte)jg^isy*2_)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kitchenbutler.io']
 
 
 # Application definition
