@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Kitchen Butler - Subscriptions{% endblock %}</title>
+    <title>{% block title %}Kitchen Butler{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -11,11 +11,15 @@
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">Kitchen Butler</h1>
             <div>
-                <a href="{% url 'home' %}" class="text-white hover:text-blue-200 mr-4">Home</a>
                 {% if user.is_authenticated %}
+                    <a href="{% url 'home' %}" class="text-white hover:text-blue-200 mr-4">Dashboard</a>
+                    <a href="#" class="text-white hover:text-blue-200 mr-4">Inventory</a>
+                    <a href="#" class="text-white hover:text-blue-200 mr-4">Meal Plan</a>
+                    <a href="#" class="text-white hover:text-blue-200 mr-4">Shopping List</a>
                     <a href="{% url 'logout' %}" class="text-white hover:text-blue-200">Logout</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="text-white hover:text-blue-200">Login</a>
+                    <a href="{% url 'login' %}" class="text-white hover:text-blue-200 mr-4">Login</a>
+                    <a href="{% url 'register' %}" class="text-white hover:text-blue-200">Sign Up</a>
                 {% endif %}
             </div>
         </div>

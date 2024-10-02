@@ -1,0 +1,40 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Kitchen Butler - Welcome{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 class="text-4xl font-bold mb-6 text-center">Welcome to Kitchen Butler</h1>
+    <p class="text-xl mb-8 text-center">Your personal ERP system for home kitchen management.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div class="bg-blue-100 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4">Streamline Your Kitchen</h2>
+            <ul class="list-disc pl-5">
+                <li>Manage inventory effortlessly</li>
+                <li>Plan meals with ease</li>
+                <li>Generate smart shopping lists</li>
+                <li>Track nutrition and dietary goals</li>
+            </ul>
+        </div>
+        <div class="bg-green-100 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4">Save Time and Money</h2>
+            <ul class="list-disc pl-5">
+                <li>Reduce food waste</li>
+                <li>Optimize grocery shopping</li>
+                <li>Streamline meal preparation</li>
+                <li>Make informed dietary choices</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="text-center">
+        <a href="{% url 'register' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mr-4">
+            Sign Up Now
+        </a>
+        <a href="{% url 'login' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-block">
+            Login
+        </a>
+    </div>
+</div>
+{% endblock %}
