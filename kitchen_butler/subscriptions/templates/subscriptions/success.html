@@ -1,3 +1,14 @@
-{% extends "base.html" %}
+{% extends "subscriptions/base.html" %}
 
-<h3>Success</h3>
+{% block title %}Kitchen Butler - Subscription Successful{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-2xl font-bold mb-4 text-green-600">Subscription Successful!</h2>
+    <p class="mb-4">Thank you for subscribing to Kitchen Butler. Your subscription is now active.</p>
+    <p class="mb-4">You now have full access to all features of Kitchen Butler. Start managing your kitchen like a pro!</p>
+    <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+        Go to Dashboard
+    </a>
+</div>
+{% endblock %}

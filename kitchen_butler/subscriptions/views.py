@@ -9,7 +9,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def subscription_page(request):
-    return render(request, 'subscriptions/subscription_page.html')
+    return render(request, 'subscriptions/subscription_page.html', {'stripe_public_key': settings.STRIPE_PUBLIC_KEY})
 
 @login_required
 def create_checkout_session(request):

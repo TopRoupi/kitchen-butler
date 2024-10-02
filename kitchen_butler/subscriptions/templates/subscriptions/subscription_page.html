@@ -1,0 +1,41 @@
+{% extends "subscriptions/base.html" %}
+
+{% block title %}Kitchen Butler - Subscribe{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-2xl font-bold mb-4">Subscribe to Kitchen Butler</h2>
+    <p class="mb-4">Get access to all features of Kitchen Butler and revolutionize your home kitchen management!</p>
+    <button id="subscribe-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Subscribe Now
+    </button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ stripe_public_key }}');
+    var subscribeButton = document.getElementById('subscribe-button');
+
+    subscribeButton.addEventListener('click', function() {
+        fetch('/subscriptions/create-checkout-session/', {
+            method: 'POST',
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function(result) {
+            if (result.error) {
+                alert(result.error.message);
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+    });
+</script>
+{% endblock %}
