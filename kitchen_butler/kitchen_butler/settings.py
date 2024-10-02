@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'subscriptions.middleware',
+    'subscriptions.middleware.SubscriptionMiddleware',
 ]
 
 ROOT_URLCONF = 'kitchen_butler.urls'
