@@ -97,7 +97,7 @@ def handle_subscription_created(event):
         # You might want to store additional information about the subscription
         user.stripe_subscription_id = subscription['id']
         user.subscription_plan = subscription['plan']['nickname']
-        user.subscription_current_period_end = datetime.fromtimestamp(subscription['current_period_end'])
+        user.subscription_current_period_end = datetime.datetime.fromtimestamp(subscription['current_period_end'])
 
         user.save()
 
