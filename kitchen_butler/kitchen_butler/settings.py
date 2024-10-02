@@ -60,7 +60,7 @@ ROOT_URLCONF = 'kitchen_butler.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'pages/templates')],
+        'DIRS': [BASE_DIR / 'pages' / 'tempaltes'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

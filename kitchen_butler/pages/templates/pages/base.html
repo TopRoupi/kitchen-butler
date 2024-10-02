@@ -16,7 +16,10 @@
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Inventory</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Meal Plan</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Shopping List</a>
-                    <a href="{% url 'logout' %}" class="text-white hover:text-blue-200">Logout</a>
+                    <form method="post" action="{% url 'logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="text-white hover:text-blue-200">Logout</button>
+                    </form>
                 {% else %}
                     <a href="{% url 'login' %}" class="text-white hover:text-blue-200 mr-4">Login</a>
                     <a href="{% url 'register' %}" class="text-white hover:text-blue-200">Sign Up</a>
