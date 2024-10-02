@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -5,6 +6,8 @@ from django.views.decorators.http import require_POST
 import stripe
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
+
+from kitchen_butler.accounts.models import CustomUser
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
