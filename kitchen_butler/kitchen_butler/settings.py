@@ -27,6 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['kitchenbutler.io']
+CSRF_TRUSTED_ORIGINS = ['https://kitchenbutler.io']
 
 
 # Application definition
