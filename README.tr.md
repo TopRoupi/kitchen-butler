@@ -2,4 +2,4 @@
 -   [Portekizce](README.pt.md)
 
 # kitchen-butler
-Mutfakin için bir ERP
+Mutfakın için bir ERP
