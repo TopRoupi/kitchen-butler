@@ -4,7 +4,7 @@ from .forms import CustomUserCreationForm
 import stripe
 from django.conf import settings
 
-stripe.api_KEY = settings.STRIPE_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def register(request):
     if request.method == 'POST':
