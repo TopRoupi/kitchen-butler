@@ -125,3 +125,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
