@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 import stripe
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -26,5 +27,8 @@ def register(request):
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('home')
-    return render(request, 'accounts/logout.html')
+        return JsonResponse({'status': 'success'})
+    elif request.method == 'GET':
+        return render(request, 'accounts/logout.html')
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)

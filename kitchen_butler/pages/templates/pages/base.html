@@ -16,10 +16,7 @@
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Inventory</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Meal Plan</a>
                     <a href="#" class="text-white hover:text-blue-200 mr-4">Shopping List</a>
-                    <form method="post" action="{% url 'logout' %}" class="inline">
-                        {% csrf_token %}
-                        <button type="submit" class="text-white hover:text-blue-200">Logout</button>
-                    </form>
+                    <button id="logout-button" class="text-white hover:text-blue-200">Logout</button>
                 {% else %}
                     <a href="{% url 'login' %}" class="text-white hover:text-blue-200 mr-4">Login</a>
                     <a href="{% url 'register' %}" class="text-white hover:text-blue-200">Sign Up</a>
@@ -36,6 +33,28 @@
             &copy; 2024 Kitchen Butler. All rights reserved.
         </div>
     </footer>
+    {% if user.is_authenticated %}
+    <script>
+        document.getElementById('logout-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('{% url "logout" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '{% url "home" %}';
+                } else {
+                    alert('Logout failed. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+    </script>
+    {% endif %}
     {% block scripts %}
     {% endblock %}
 </body>
