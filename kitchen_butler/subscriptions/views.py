@@ -22,8 +22,19 @@ def subscription_page(request):
 def create_checkout_session(request):
     if request.method == 'POST':
         try:
+            # Check if the user already has a Stripe customer ID
+            if request.user.stripe_customer_id:
+                customer_id = request.user.stripe_customer_id
+            else:
+                # If not, create a new customer
+                customer = stripe.Customer.create(email=request.user.email)
+                customer_id = customer.id
+                # Save the new customer ID to the user model
+                request.user.stripe_customer_id = customer_id
+                request.user.save()
+
             checkout_session = stripe.checkout.Session.create(
-                customer_email=request.user.email,
+                customer=customer_id,
                 payment_method_types=['card'],
                 line_items=[{
                     'price': settings.STRIPE_PRICE_ID,
